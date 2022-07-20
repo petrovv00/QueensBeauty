@@ -1,0 +1,90 @@
+﻿<Window x:Class="View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:View"
+        xmlns:views="clr-namespace:View.Views"
+        xmlns:viewModels="clr-namespace:ViewModel.ViewModels;assembly=ViewModel"
+        mc:Ignorable="d"
+        Title="Queen's Beauty" Height="450" Width="800" FontFamily="Tahoma" FontSize="12"
+        WindowState="Maximized"
+        Icon="Views/Images/ProgramIcon.ico">
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        
+        <DataTemplate DataType="{x:Type viewModels:StartupViewModel}">
+            <views:StartupView />
+        </DataTemplate> 
+        <DataTemplate DataType="{x:Type viewModels:CustomerViewModel}">
+            <views:CustomerView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ServiceViewModel}">
+            <views:ServiceView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:AppointmentViewModel}">
+            <views:AppointmentView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:HelpViewModel}">
+            <views:HelpView />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+                   Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="0.25*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Menu DockPanel.Dock="Top"
+                      Background="Silver">
+                    <MenuItem Header="Home"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="home"
+                              FontWeight="Bold"
+                              FontSize="16" />
+                    <MenuItem Header="Customers"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="customer"
+                              FontWeight="Bold"
+                              FontSize="16" />
+                    <MenuItem Header="Services"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="service"
+                              FontWeight="Bold"
+                              FontSize="16" />
+                    <MenuItem Header="Appointments"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="appointment"
+                              FontWeight="Bold"
+                              FontSize="16" />
+                    <MenuItem Header="Help"
+                              FontWeight="Bold"
+                              FontSize="16"
+                              Command="{Binding NavCommand}"
+                              CommandParameter="help" />
+                </Menu>
+            </Grid>
+            <Grid Background="Silver"
+                  Grid.Column="1">
+                <Image Grid.Column="1" 
+                       HorizontalAlignment="Right"
+                       Source="Views/Images/settings.png"
+                       Height="20"
+                       Width="20"
+                       Margin="10,0,10,0"/>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <ContentControl Content="{Binding CurrentViewModel}" />
+        </Grid>
+    </Grid>
+</Window>
